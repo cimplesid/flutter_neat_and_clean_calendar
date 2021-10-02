@@ -91,8 +91,8 @@ class Calendar extends StatefulWidget {
   final bool startOnMonday;
   final bool hideBottomBar;
   final TextStyle? dayOfWeekStyle;
-  final TextStyle? bottomBarTextStyle;
-  final Color? bottomBarArrowColor;
+  final TextStyle? bottomBarTextStyle, headerStyle, dayStyle;
+  final Color? bottomBarArrowColor, dayColor;
   final Color? bottomBarColor;
   final String? expandableDateFormat;
 
@@ -113,6 +113,7 @@ class Calendar extends StatefulWidget {
     this.todayColor,
     this.todayButtonText: 'Today',
     this.eventColor,
+    this.dayColor,
     this.eventDoneColor,
     this.initialDate,
     this.isExpanded = false,
@@ -124,6 +125,8 @@ class Calendar extends StatefulWidget {
     this.bottomBarArrowColor,
     this.bottomBarColor,
     this.expandableDateFormat = 'EEEE MMMM dd, yyyy',
+    this.headerStyle,
+    this.dayStyle,
   });
 
   @override
@@ -195,12 +198,12 @@ class _CalendarState extends State<Calendar> {
         Column(
           children: <Widget>[
             todayIcon ?? Container(),
-            Text(
-              displayMonth,
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
-            ),
+            Text(displayMonth,
+                style: widget.headerStyle ??
+                    Theme.of(context)
+                        .textTheme
+                        .headline5
+                        ?.copyWith(fontSize: 20)),
           ],
         ),
         rightArrow ?? Container(),
@@ -295,6 +298,7 @@ class _CalendarState extends State<Calendar> {
         } else {
           dayWidgets.add(
             NeatCleanCalendarTile(
+                dayColor: widget.dayColor,
                 selectedColor: widget.selectedColor,
                 todayColor: widget.todayColor,
                 eventColor: widget.eventColor,
@@ -325,8 +329,9 @@ class _CalendarState extends State<Calendar> {
         body1Style.color!.blue,
       ));
 
-      dateStyles =
-          monthStarted && !monthEnded ? body1Style : body1StyleDisabled;
+      dateStyles = monthStarted && !monthEnded
+          ? (widget.dayStyle ?? body1Style)
+          : body1StyleDisabled;
     } else {
       dateStyles = body1Style;
     }

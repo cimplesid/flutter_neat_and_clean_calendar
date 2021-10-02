@@ -10,6 +10,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Clean Calendar Demo',
       home: CalendarScreen(),
+      themeMode: ThemeMode.dark,
+      darkTheme: ThemeData.dark(),
     );
   }
 }
@@ -107,6 +109,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Scaffold(
       body: SafeArea(
         child: Calendar(
+          dayStyle: TextStyle(color: Colors.red),
           startOnMonday: true,
           weekDays: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
           events: _events,
@@ -114,7 +117,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
           eventDoneColor: Colors.green,
           selectedColor: Colors.pink,
           todayColor: Colors.blue,
-          eventColor: Colors.grey,
+          eventColor: Colors.yellow,
+          dayColor: Colors.white,
           locale: 'de_DE',
           todayButtonText: 'Heute',
           isExpanded: true,

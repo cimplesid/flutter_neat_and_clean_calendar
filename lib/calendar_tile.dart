@@ -36,7 +36,7 @@ class NeatCleanCalendarTile extends StatelessWidget {
   final TextStyle? dayOfWeekStyle;
   final TextStyle? dateStyles;
   final Widget? child;
-  final Color? selectedColor;
+  final Color? selectedColor, dayColor;
   final Color? todayColor;
   final Color? eventColor;
   final Color? eventDoneColor;
@@ -56,6 +56,7 @@ class NeatCleanCalendarTile extends StatelessWidget {
     this.todayColor,
     this.eventColor,
     this.eventDoneColor,
+    this.dayColor,
   });
 
   /// This function [renderDateOrDayOfWeek] renders the week view or the month view. It is
@@ -111,7 +112,7 @@ class NeatCleanCalendarTile extends StatelessWidget {
                           : Utils.isSameDay(this.date!, DateTime.now())
                               ? todayColor
                               : inMonth
-                                  ? Colors.black
+                                  ? dayColor ?? Colors.black
                                   : Colors
                                       .grey), // Grey color for previous or next months dates
                 ),
